@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @city.nome %>
+</p>
+
+<p>
+  <strong>Populacao:</strong>
+  <%= @city.populacao %>
+</p>
+
+<p>
+  <strong>Prefeito</strong>
+  <p>
+    Nome do Prefeito: 
+    <%= @city.mayor.nome %>
+  </p>
+  <p>
+    Email do Prefeito: 
+    <%= @city.mayor.email %>
+  </p>
+</p>
+
+<p>
+  <strong>Vereadores:</strong>
+  <% @city.councilors.each do | v | %>
+  <ul>
+    <li>Nome do vereador: <%= v.nome %><br>Telefone do vereador: <%= v.telefone %></li>
+  </ul>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_city_path(@city) %> |
+<%= link_to 'Back', cities_path %>

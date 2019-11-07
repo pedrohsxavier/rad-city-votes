@@ -1,0 +1,55 @@
+<%= form_with(model: city, local: true) do |form| %>
+  <% if city.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(city.errors.count, "error") %> prohibited this city from being saved:</h2>
+
+      <ul>
+      <% city.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h3>Cidade</h3>
+
+  <div class="field">
+    <%= form.label :nome %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div class="field">
+    <%= form.label :populacao %>
+    <%= form.text_field :populacao %>
+  </div>
+
+  <h4>Prefeito</h4>
+
+  <div id="mayor">
+    <%= form.fields_for :mayor do |mayor_fields| %>
+      <div class="field">
+        <%= mayor_fields.label :"Nome do Prefeito" %>
+        <%= mayor_fields.text_field :nome %>
+      </div>
+
+      <div class="field">
+        <%= mayor_fields.label :"Email do Prefeito" %>
+        <%= mayor_fields.text_field :email %>
+      </div>
+    <% end %>
+  </div>
+
+  <h4>Vereadores</h4>
+
+  <div id="councilors">
+    <%= form.fields_for :councilors do | councilors_fields | %>
+      <%= render partial: "councilor_fields", locals: {f: councilors_fields} %>
+    <% end %>
+
+    <%= link_to_add_association('[Novo Vereador]', form, :councilors) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

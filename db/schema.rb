@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_07_183824) do
+ActiveRecord::Schema.define(version: 2019_11_21_195103) do
 
   create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nome"
@@ -37,6 +37,24 @@ ActiveRecord::Schema.define(version: 2019_11_07_183824) do
     t.index ["city_id"], name: "index_mayors_on_city_id"
   end
 
+  create_table "voters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "nome"
+    t.string "cpf"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "votes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "city_id"
+    t.bigint "voter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_votes_on_city_id"
+    t.index ["voter_id"], name: "index_votes_on_voter_id"
+  end
+
   add_foreign_key "councilors", "cities"
   add_foreign_key "mayors", "cities"
+  add_foreign_key "votes", "cities"
+  add_foreign_key "votes", "voters"
 end
